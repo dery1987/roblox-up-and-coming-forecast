@@ -19,7 +19,7 @@ Method (standard library only, fully deterministic, no randomness):
   points per hour. The game's
   expected rank at horizon H is last_rank + slope * H, clamped to
   [1, 110]. Averaging a Gaussian kernel (sigma = 5 ranks) around that
-  expected rank over horizons H = 12, 36 and 60 hours gives a time-averaged
+  expected rank over horizons H = 6, 24 and 48 hours gives a time-averaged
   occupancy distribution: the mean over the scored window, not a point
   forecast at one hour. Each place's probabilities are normalised to sum
   to 0.78, leaving 0.22 unnamed -- shared equally by every game on a
@@ -30,9 +30,13 @@ Method (standard library only, fully deterministic, no randomness):
 
   Backtests on the practice history (train on the first 20 / 24 / 28
   snapshots, score the following 72 hours with the official log-score
-  rule) gave a mean log score of about -38.5 for this forecaster versus
-  about -48.1 for the house persistence baseline -- roughly a 9-10 point
-  improvement -- with the same parameters used here, not tuned per cut.
+  rule) gave a mean log score of about -37.9 for this forecaster versus
+  about -48.1 for the house persistence baseline -- roughly a 10 point
+  improvement. The horizons (6, 24, 48) were chosen by a small sweep:
+  they beat the earlier (12, 36, 60) horizons on every one of the three
+  backtest cutoffs (-39.9 / -39.8 / -34.0 vs -40.2 / -40.1 / -35.0),
+  while a pooled-Markov blend and other windows/sigmas did not improve
+  all three cutoffs at once, so they were not adopted.
 
 Usage (outside the grader):
   mkdir -p out && MAKEFUN_INPUT_DIR=input MAKEFUN_OUTPUT_DIR=out python3 main.py
@@ -45,7 +49,7 @@ from datetime import datetime, timezone
 
 # --- Tuned, fixed parameters (see module docstring for the backtest). ---
 SIGMA = 5.0            # Gaussian kernel width, in ranks.
-HORIZONS = (12.0, 36.0, 60.0)  # Hours ahead, averaged: the 72 h window.
+HORIZONS = (6.0, 24.0, 48.0)  # Hours ahead, averaged: the 72 h window.
 TOTAL_MASS = 0.78      # Sum of named probabilities per place; rest unnamed.
 SLOPE_CAP = 0.6        # Max |rank points per hour| of estimated velocity.
 SLOPE_WINDOW_HOURS = 48.0

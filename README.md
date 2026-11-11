@@ -4,7 +4,7 @@
 [![rank](https://make.fun/badge/roblox-up-and-coming-forecast-01/dery1987/roblox-up-and-coming-forecast/rank.svg)](https://make.fun/bounty/roblox-up-and-coming-forecast-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=roblox-up-and-coming-forecast-01)
 [![reward](https://make.fun/badge/roblox-up-and-coming-forecast-01/dery1987/roblox-up-and-coming-forecast/reward.svg)](https://make.fun/bounty/roblox-up-and-coming-forecast-01?utm_source=github&utm_medium=readme&utm_campaign=roblox-up-and-coming-forecast-01)
 
-A deterministic Python forecaster for Roblox's Up-and-Coming chart: it estimates each game's rank velocity over the last 48 hours and averages a Gaussian kernel over 12, 36 and 60 hour horizons to predict the top 10 for the next 72 hours.
+A deterministic Python forecaster for Roblox's Up-and-Coming chart: it estimates each game's rank velocity over the last 48 hours and averages a Gaussian kernel over 6, 24 and 48 hour horizons to predict the top 10 for the next 72 hours.
 
 ## Run it
 
